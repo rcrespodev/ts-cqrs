@@ -1,6 +1,6 @@
 {
   "name": "ts-cqrs",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "CQRS implementation on Typescript.",
   "main": "build/cjs/main.js",
   "module": "build/esm/main.js",
