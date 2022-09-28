@@ -1,2 +1,2 @@
 # ts-cqrs
-CQRS implementation on Typescript
+CQRS implementation on Typescript.

@@ -1,0 +1,29 @@
+{
+  "name": "ts-cqrs",
+  "version": "1.0.0",
+  "description": "CQRS implementation on Typescript.",
+  "main": "build/cjs/main.js",
+  "module": "build/esm/main.js",
+  "types": "build/esm/main.d.ts",
+  "scripts": {
+    "prepare": "npm run build",
+    "build": "npm run build:esm && npm run build:cjs",
+    "build:esm": "tsc -p . --outDir build/esm",
+    "build:cjs": "tsc --module commonjs --outDir build/cjs",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rcrespodev/ts-cqrs.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rcrespodev/ts-cqrs/issues"
+  },
+  "homepage": "https://github.com/rcrespodev/ts-cqrs#readme",
+  "devDependencies": {
+    "typescript": "^4.8.4"
+  }
+}
