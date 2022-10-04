@@ -1,6 +1,6 @@
 {
   "name": "ts-cqrs",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "CQRS implementation on Typescript.",
   "main": "build/cjs/main.js",
   "module": "build/esm/main.js",
@@ -49,7 +49,7 @@
       "^.+\\.(ts|tsx)$": "ts-jest"
     },
     "testMatch": [
-      "**/tests/**/*.+(ts|tsx|js)"
+      "**/tests/**/*_test.+(ts|tsx|js)"
     ]
   },
   "dependencies": {

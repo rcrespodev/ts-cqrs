@@ -1,0 +1,1 @@
+export type Status = 0 | 1 | 2 // 0=success, 1=internal_error, 2=bad_request

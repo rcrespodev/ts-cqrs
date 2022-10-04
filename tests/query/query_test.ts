@@ -1,22 +1,27 @@
+import {expect, jest, test} from '@jest/globals';
 import {
-    NewResponseCommand,
     ResponseCode,
     ResponsePkg,
-    ResponseText,
     ResponseVars,
-    StatusCode
+    NewResponseCommand,
+    StatusCode, ResponseText,
 } from "../../src/response/response";
-import {CommandTestCases} from "./commandTestCases";
-import {Command} from "../../src/command/command";
-import {BaseCommand} from "../../src/command/baseCommand";
-import {expect} from "@jest/globals";
 import {NewBadRequestCommand, NewInternalErrorCommand, NewSuccessCommand} from "../../src/response/baseResponse";
+import {QueryTestCases} from "./queryTestCases";
+import {Query} from "../../src/query/query";
+import {BaseQuery} from "../../src/query/baseQuery";
+
+type MockData = {
+    field1: string
+    field2: number
+}
 
 type args = {
     commandId: string,
     commandUuid: string,
     payload: any,
     responseCommands: NewResponseCommand[],
+    data: MockData
 }
 
 type want = {
@@ -33,7 +38,8 @@ type want = {
     error: {
         wantError: boolean,
         error: Error | undefined,
-    },
+    }
+    data: MockData
 }
 
 export type test = {
@@ -42,14 +48,14 @@ export type test = {
     want: want,
 }
 
-const tests = CommandTestCases()
+const tests = QueryTestCases()
 
-describe("Command Tests", () => {
+describe("Query Tests", () => {
     test.each(tests)("%s", ({name, args, want}) => {
         console.log(name)
-        let command: Command<typeof args.payload>
+        let query: Query<typeof args.payload, typeof args.data>
         try {
-            command = new BaseCommand(args.commandId, args.commandUuid, args.payload)
+            query = new BaseQuery(args.commandId, args.commandUuid, args.payload)
         } catch (e) {
             expect(want.error.wantError).toEqual(true)
             // @ts-ignore
@@ -61,20 +67,20 @@ describe("Command Tests", () => {
 
 
         // check fields.
-        expect(command.Uuid().String()).toEqual(want.commandUuid)
-        expect(command.Id().String()).toEqual(want.commandId)
-        expect(command.Payload().Payload()).toEqual(want.payload)
+        expect(query.Uuid().String()).toEqual(want.commandUuid)
+        expect(query.Id().String()).toEqual(want.commandId)
+        expect(query.Payload().Payload()).toEqual(want.payload)
 
-        // check message of command.
+        // check message of query.
         if (args.responseCommands === undefined) {
             return
         }
-        command = logMessages(command, args.responseCommands)
-        expect(command.ResponseHandler().Response()).toEqual((want.response))
+        query = logMessages(query, args.responseCommands)
+        expect(query.ResponseHandler().Response()).toEqual((want.response))
     })
 })
 
-function logMessages(command: Command<any>, responseCommands: NewResponseCommand[]): Command<any> {
+function logMessages(query: Query<any, any>, responseCommands: NewResponseCommand[]): Query<any, any> {
     for (const m of responseCommands) {
         switch (m.StatusCode) {
             case 0: {
@@ -85,7 +91,7 @@ function logMessages(command: Command<any>, responseCommands: NewResponseCommand
                     StatusCode: 0,
                     ResponseText: "",
                 }
-                command.ResponseHandler().SaveResponse(success)
+                query.ResponseHandler().SaveResponse(success)
                 break
             }
             case 1: {
@@ -96,7 +102,7 @@ function logMessages(command: Command<any>, responseCommands: NewResponseCommand
                     StatusCode: 1,
                     ResponseText: "",
                 }
-                command.ResponseHandler().SaveResponse(internalError)
+                query.ResponseHandler().SaveResponse(internalError)
                 break
             }
             case 2: {
@@ -107,10 +113,10 @@ function logMessages(command: Command<any>, responseCommands: NewResponseCommand
                     StatusCode: 2,
                     ResponseText: "",
                 }
-                command.ResponseHandler().SaveResponse(badRequest)
+                query.ResponseHandler().SaveResponse(badRequest)
                 break
             }
         }
     }
-    return command
+    return query
 }

@@ -1,65 +1,80 @@
-import {test} from "./command_test";
+import {test} from "./query_test";
 
-export function CommandTestCases(): test[] {
+export function QueryTestCases(): test[] {
     return [
         {
-            name: "commandId null",
+            name: "queryId null",
             args: {
                 commandId: "",
                 commandUuid: "123e4567-e89b-12d3-a456-426614174000",
-                messagesCommands: [],
+                responseCommands: [],
                 payload: {},
+                data: {
+                    field1: "test data", field2: 0
+                }
             },
             want: {
                 commandId: "",
                 commandUuid: "123e4567-e89b-12d3-a456-426614174000",
                 error: {
                     wantError: true,
-                    error: new Error("CommandId cannot be undefined or initial"),
+                    error: new Error("Id cannot be undefined or initial"),
                 },
-                message: undefined,
+                response: undefined,
                 payload: undefined,
-                checkPayloadType: false,
+                data: {
+                    field1: "test data", field2: 0
+                }
             },
         },
         {
-            name: "commandUuid undefined",
+            name: "queryUuid undefined",
             args: {
                 commandId: "test_id",
                 commandUuid: "",
-                messagesCommands: [],
+                responseCommands: [],
                 payload: {},
+                data: {
+                    field1: "test data", field2: 0
+                }
             },
             want: {
                 commandId: "test_id",
                 commandUuid: "",
                 error: {
                     wantError: true,
-                    error: new Error("CommandUuid cannot be undefined or initial"),
+                    error: new Error("Uuid cannot be undefined or initial"),
                 },
-                message: undefined,
+                response: undefined,
                 payload: undefined,
-                checkPayloadType: false,
+                data: {
+                    field1: "test data", field2: 0
+                }
             },
         },
         {
-            name: "commandUuid don´t have uuidv4 format.",
+            name: "queryUuid don´t have uuidv4 format.",
             args: {
                 commandId: "test_id",
                 commandUuid: "123e4567-e89b-12d3-a456-426",
-                messagesCommands: [],
+                responseCommands: [],
                 payload: {},
+                data: {
+                    field1: "test data", field2: 0
+                }
             },
             want: {
                 commandId: "test_id",
                 commandUuid: "123e4567-e89b-12d3-a456-426",
                 error: {
                     wantError: true,
-                    error: new Error("CommandUuid must have UUID@v4 format."),
+                    error: new Error("Uuid must have UUID@v4 format."),
                 },
-                message: undefined,
+                response: undefined,
                 payload: {},
-                checkPayloadType: false,
+                data: {
+                    field1: "test data", field2: 0
+                }
             },
         },
         {
@@ -67,8 +82,11 @@ export function CommandTestCases(): test[] {
             args: {
                 commandId: "test_id",
                 commandUuid: "123e4567-e89b-12d3-a456-426614174000",
-                messagesCommands: [],
+                responseCommands: [],
                 payload: undefined,
+                data: {
+                    field1: "test data", field2: 0
+                }
             },
             want: {
                 commandId: "test_id",
@@ -77,9 +95,11 @@ export function CommandTestCases(): test[] {
                     wantError: true,
                     error: new Error("Payload can´t be undefined"),
                 },
-                message: undefined,
+                response: undefined,
                 payload: undefined,
-                checkPayloadType: false,
+                data: {
+                    field1: "test data", field2: 0
+                }
             },
         },
         {
@@ -87,15 +107,19 @@ export function CommandTestCases(): test[] {
             args: {
                 commandId: "test_id",
                 commandUuid: "123e4567-e89b-12d3-a456-426614174000",
-                messagesCommands: [
+                responseCommands: [
                     {
                         StatusCode: 0,
-                        MessageCode: 0,
-                        MessagePkg: "testPkg",
-                        MessageVars: ["var1", "var2"],
+                        ResponseCode: 0,
+                        ResponsePkg: "testPkg",
+                        ResponseVars: ["var1", "var2"],
+                        ResponseText: "",
                     },
                 ],
                 payload: {},
+                data: {
+                    field1: "test data", field2: 0
+                }
             },
             want: {
                 commandId: "test_id",
@@ -104,14 +128,17 @@ export function CommandTestCases(): test[] {
                     wantError: false,
                     error: undefined,
                 },
-                message: {
+                response: {
                     _StatusCode: 0,
-                    _MessageCode: 0,
-                    _MessagePkg: "testPkg",
-                    _MessageVars: ["var1", "var2"],
+                    _ResponseCode: 0,
+                    _ResponsePkg: "testPkg",
+                    _ResponseVars: ["var1", "var2"],
+                    _ResponseText: "",
                 },
                 payload: {},
-                checkPayloadType: false,
+                data: {
+                    field1: "test data", field2: 0
+                }
             },
         },
         {
@@ -119,15 +146,19 @@ export function CommandTestCases(): test[] {
             args: {
                 commandId: "test_id",
                 commandUuid: "123e4567-e89b-12d3-a456-426614174000",
-                messagesCommands: [
+                responseCommands: [
                     {
                         StatusCode: 1,
-                        MessageCode: 0,
-                        MessagePkg: "testPkg",
-                        MessageVars: ["var1", "var2"],
+                        ResponseCode: 0,
+                        ResponsePkg: "testPkg",
+                        ResponseVars: ["var1", "var2"],
+                        ResponseText: "",
                     },
                 ],
                 payload: {},
+                data: {
+                    field1: "test data", field2: 0
+                }
             },
             want: {
                 commandId: "test_id",
@@ -136,14 +167,17 @@ export function CommandTestCases(): test[] {
                     wantError: false,
                     error: undefined,
                 },
-                message: {
+                response: {
                     _StatusCode: 1,
-                    _MessageCode: 0,
-                    _MessagePkg: "testPkg",
-                    _MessageVars: ["var1", "var2"],
+                    _ResponseCode: 0,
+                    _ResponsePkg: "testPkg",
+                    _ResponseVars: ["var1", "var2"],
+                    _ResponseText: "",
                 },
                 payload: {},
-                checkPayloadType: false,
+                data: {
+                    field1: "test data", field2: 0
+                }
             },
         },
         {
@@ -151,15 +185,19 @@ export function CommandTestCases(): test[] {
             args: {
                 commandId: "test_id",
                 commandUuid: "123e4567-e89b-12d3-a456-426614174000",
-                messagesCommands: [
+                responseCommands: [
                     {
                         StatusCode: 2,
-                        MessageCode: 0,
-                        MessagePkg: "testPkg",
-                        MessageVars: ["var1", "var2"],
+                        ResponseCode: 0,
+                        ResponsePkg: "testPkg",
+                        ResponseVars: ["var1", "var2"],
+                        ResponseText: "",
                     },
                 ],
                 payload: {},
+                data: {
+                    field1: "test data", field2: 0
+                }
             },
             want: {
                 commandId: "test_id",
@@ -168,14 +206,17 @@ export function CommandTestCases(): test[] {
                     wantError: false,
                     error: undefined,
                 },
-                message: {
+                response: {
                     _StatusCode: 2,
-                    _MessageCode: 0,
-                    _MessagePkg: "testPkg",
-                    _MessageVars: ["var1", "var2"],
+                    _ResponseCode: 0,
+                    _ResponsePkg: "testPkg",
+                    _ResponseVars: ["var1", "var2"],
+                    _ResponseText: "",
                 },
                 payload: {},
-                checkPayloadType: false,
+                data: {
+                    field1: "test data", field2: 0
+                }
             },
         },
         {
@@ -183,27 +224,33 @@ export function CommandTestCases(): test[] {
             args: {
                 commandId: "test_id",
                 commandUuid: "123e4567-e89b-12d3-a456-426614174000",
-                messagesCommands: [
+                responseCommands: [
                     {
                         StatusCode: 2,
-                        MessageCode: 0,
-                        MessagePkg: "testPkg",
-                        MessageVars: ["var1", "var2"],
+                        ResponseCode: 0,
+                        ResponsePkg: "testPkg",
+                        ResponseVars: ["var1", "var2"],
+                        ResponseText: "",
                     },
                     {
                         StatusCode: 0,
-                        MessageCode: 0,
-                        MessagePkg: "testPkg",
-                        MessageVars: ["var1", "var2"],
+                        ResponseCode: 0,
+                        ResponsePkg: "testPkg",
+                        ResponseVars: ["var1", "var2"],
+                        ResponseText: "",
                     },
                     {
                         StatusCode: 1,
-                        MessageCode: 0,
-                        MessagePkg: "testPkg",
-                        MessageVars: ["var1", "var2"],
+                        ResponseCode: 0,
+                        ResponsePkg: "testPkg",
+                        ResponseVars: ["var1", "var2"],
+                        ResponseText: "",
                     },
                 ],
                 payload: {},
+                data: {
+                    field1: "test data", field2: 0
+                }
             },
             want: {
                 commandId: "test_id",
@@ -212,14 +259,17 @@ export function CommandTestCases(): test[] {
                     wantError: false,
                     error: undefined,
                 },
-                message: {
+                response: {
                     _StatusCode: 1,
-                    _MessageCode: 0,
-                    _MessagePkg: "testPkg",
-                    _MessageVars: ["var1", "var2"],
+                    _ResponseCode: 0,
+                    _ResponsePkg: "testPkg",
+                    _ResponseVars: ["var1", "var2"],
+                    _ResponseText: "",
                 },
                 payload: {},
-                checkPayloadType: false,
+                data: {
+                    field1: "test data", field2: 0
+                }
             },
         },
         {
@@ -227,27 +277,33 @@ export function CommandTestCases(): test[] {
             args: {
                 commandId: "test_id",
                 commandUuid: "123e4567-e89b-12d3-a456-426614174000",
-                messagesCommands: [
+                responseCommands: [
                     {
                         StatusCode: 0,
-                        MessageCode: 0,
-                        MessagePkg: "testPkg",
-                        MessageVars: ["var1", "var2"],
+                        ResponseCode: 0,
+                        ResponsePkg: "testPkg",
+                        ResponseVars: ["var1", "var2"],
+                        ResponseText: "",
                     },
                     {
                         StatusCode: 1,
-                        MessageCode: 0,
-                        MessagePkg: "testPkg",
-                        MessageVars: ["var1", "var2"],
+                        ResponseCode: 0,
+                        ResponsePkg: "testPkg",
+                        ResponseVars: ["var1", "var2"],
+                        ResponseText: "",
                     },
                     {
                         StatusCode: 2,
-                        MessageCode: 0,
-                        MessagePkg: "testPkg",
-                        MessageVars: ["var1", "var2"],
+                        ResponseCode: 0,
+                        ResponsePkg: "testPkg",
+                        ResponseVars: ["var1", "var2"],
+                        ResponseText: "",
                     },
                 ],
                 payload: {},
+                data: {
+                    field1: "test data", field2: 0
+                }
             },
             want: {
                 commandId: "test_id",
@@ -256,14 +312,17 @@ export function CommandTestCases(): test[] {
                     wantError: false,
                     error: undefined,
                 },
-                message: {
+                response: {
                     _StatusCode: 1,
-                    _MessageCode: 0,
-                    _MessagePkg: "testPkg",
-                    _MessageVars: ["var1", "var2"],
+                    _ResponseCode: 0,
+                    _ResponsePkg: "testPkg",
+                    _ResponseVars: ["var1", "var2"],
+                    _ResponseText: "",
                 },
                 payload: {},
-                checkPayloadType: false,
+                data: {
+                    field1: "test data", field2: 0
+                }
             },
         },
         {
@@ -271,27 +330,33 @@ export function CommandTestCases(): test[] {
             args: {
                 commandId: "test_id",
                 commandUuid: "123e4567-e89b-12d3-a456-426614174000",
-                messagesCommands: [
+                responseCommands: [
                     {
                         StatusCode: 1,
-                        MessageCode: 0,
-                        MessagePkg: "testPkg",
-                        MessageVars: ["var1", "var2"],
+                        ResponseCode: 0,
+                        ResponsePkg: "testPkg",
+                        ResponseVars: ["var1", "var2"],
+                        ResponseText: "",
                     },
                     {
                         StatusCode: 2,
-                        MessageCode: 0,
-                        MessagePkg: "testPkg",
-                        MessageVars: ["var1", "var2"],
+                        ResponseCode: 0,
+                        ResponsePkg: "testPkg",
+                        ResponseVars: ["var1", "var2"],
+                        ResponseText: "",
                     },
                     {
                         StatusCode: 0,
-                        MessageCode: 0,
-                        MessagePkg: "testPkg",
-                        MessageVars: ["var1", "var2"],
+                        ResponseCode: 0,
+                        ResponsePkg: "testPkg",
+                        ResponseVars: ["var1", "var2"],
+                        ResponseText: "",
                     },
                 ],
                 payload: {},
+                data: {
+                    field1: "test data", field2: 0
+                }
             },
             want: {
                 commandId: "test_id",
@@ -300,14 +365,17 @@ export function CommandTestCases(): test[] {
                     wantError: false,
                     error: undefined,
                 },
-                message: {
+                response: {
                     _StatusCode: 1,
-                    _MessageCode: 0,
-                    _MessagePkg: "testPkg",
-                    _MessageVars: ["var1", "var2"],
+                    _ResponseCode: 0,
+                    _ResponsePkg: "testPkg",
+                    _ResponseVars: ["var1", "var2"],
+                    _ResponseText: "",
                 },
                 payload: {},
-                checkPayloadType: false,
+                data: {
+                    field1: "test data", field2: 0
+                }
             },
         },
         {
@@ -315,15 +383,19 @@ export function CommandTestCases(): test[] {
             args: {
                 commandId: "test_id",
                 commandUuid: "123e4567-e89b-12d3-a456-426614174000",
-                messagesCommands: [
+                responseCommands: [
                     {
                         StatusCode: 1,
-                        MessageCode: 0,
-                        MessagePkg: "testPkg",
-                        MessageVars: ["var1", "var2"],
+                        ResponseCode: 0,
+                        ResponsePkg: "testPkg",
+                        ResponseVars: ["var1", "var2"],
+                        ResponseText: "",
                     },
                 ],
                 payload: {},
+                data: {
+                    field1: "test data", field2: 0
+                }
             },
             want: {
                 commandId: "test_id",
@@ -332,14 +404,17 @@ export function CommandTestCases(): test[] {
                     wantError: false,
                     error: undefined,
                 },
-                message: {
+                response: {
                     _StatusCode: 1,
-                    _MessageCode: 0,
-                    _MessagePkg: "testPkg",
-                    _MessageVars: ["var1", "var2"],
+                    _ResponseCode: 0,
+                    _ResponsePkg: "testPkg",
+                    _ResponseVars: ["var1", "var2"],
+                    _ResponseText: "",
                 },
                 payload: {},
-                checkPayloadType: true,
+                data: {
+                    field1: "test data", field2: 0
+                }
             },
         }
     ]
